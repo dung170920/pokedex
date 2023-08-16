@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { getPokemons } from 'src/api'
-import { PokemonCard } from 'src/components'
+import { Pagination, PokemonCard } from 'src/components'
 
 const Home = () => {
+  const limit = 10
   const [offset] = useState(0)
 
   const { data } = useQuery({
@@ -11,19 +12,21 @@ const Home = () => {
     queryFn: () =>
       getPokemons({
         offset,
-        limit: 12
+        limit
       }),
     keepPreviousData: true
   })
 
   return (
-    <div className='grid w-full h-full grid-cols-4 gap-5 p-10 overflow-hidden'>
-      {data?.data.results.map(({ name }) => (
-        <div key={name}>
-          <PokemonCard name={name} />
-        </div>
-      ))}
-      {/* <Pagination /> */}
+    <div className='w-full h-full px-8 py-6 overflow-y-scroll'>
+      <div className='grid grid-cols-5 gap-5 mb-5'>
+        {data?.data.results.map(({ name }) => (
+          <div key={name}>
+            <PokemonCard name={name} />
+          </div>
+        ))}
+      </div>
+      <Pagination currentPage={offset} totalPages={data?.data.count || 0 / limit} />
     </div>
   )
 }

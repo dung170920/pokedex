@@ -1,4 +1,4 @@
-import { Sprite } from 'src/types'
+import { Sprite, Type } from 'src/types'
 
 export interface Pokemon {
   id: number
@@ -7,4 +7,5 @@ export interface Pokemon {
   height: number
   is_default: boolean
   sprites: Sprite
+  types: Type[]
 }

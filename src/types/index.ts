@@ -1,3 +1,4 @@
-export * from './PokemonType'
-export * from './ListType'
-export * from './SpriteType'
+export * from './Pokemon'
+export * from './List'
+export * from './Sprite'
+export * from './Type'
