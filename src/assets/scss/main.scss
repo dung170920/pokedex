@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply font-primary font-normal text-base h-full w-screen;
+  main {
+    @apply font-primary font-normal text-base h-screen w-screen overflow-hidden relative;
   }
 }
