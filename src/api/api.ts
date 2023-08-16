@@ -5,7 +5,7 @@ class Api {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: process.env.BASE_URL,
+      baseURL: import.meta.env.VITE_API_BASE_URL,
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json'

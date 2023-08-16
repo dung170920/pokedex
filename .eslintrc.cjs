@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   root: true,
-  env: { browser: true, es2015: true, node: true },
+  env: { browser: true, node: true },
   extends: [
     'eslint:recommended',
     'plugin:react/recommended',
