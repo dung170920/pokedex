@@ -4,13 +4,16 @@ export default {
   safelist: [
     {
       pattern: /(bg|text|border|shadow)-type-/,
-      variants: ['hover']
+      variants: ['hover', 'before', 'webkit-progress-value']
     }
   ],
   theme: {
     extend: {
       fontFamily: {
         primary: ['Lexend', 'sans-serif']
+      },
+      spacing: {
+        112: '28rem'
       },
       colors: {
         gray: {
@@ -36,7 +39,7 @@ export default {
           ice: '#9AD6DF',
           dragon: '#7037FF',
           fairy: '#E69EAC',
-          shadow: '##68a090',
+          // shadow: '##68a090',
           unknown: '#B8B8B8',
           dark: '#75574C'
         }
