@@ -4,3 +4,5 @@ export interface Type {
     name: string
   }
 }
+
+export type Types = Type[]

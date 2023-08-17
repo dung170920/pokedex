@@ -1,10 +1,10 @@
-import { ListResponseType, Pokemon, RequestListParams } from 'src/types'
+import { ListResponseType, Pokemon, Pokemons, RequestListParams } from 'src/types'
 import { api } from './api'
 
 const URL = 'pokemon'
 
 export const getPokemons = (params: RequestListParams) => {
-  return api.get<ListResponseType<Pokemon>>(URL, {
+  return api.get<ListResponseType<Pokemons>>(URL, {
     params
   })
 }

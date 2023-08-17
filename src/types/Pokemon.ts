@@ -1,4 +1,4 @@
-import { Sprite, Type } from 'src/types'
+import { Sprite, Types } from 'src/types'
 
 export interface Pokemon {
   id: number
@@ -7,5 +7,7 @@ export interface Pokemon {
   height: number
   is_default: boolean
   sprites: Sprite
-  types: Type[]
+  types: Types
 }
+
+export type Pokemons = Pick<Pokemon, 'name'>[]

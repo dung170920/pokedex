@@ -10,7 +10,7 @@ const loadable = (Component: React.LazyExoticComponent<() => JSX.Element>) => (p
 )
 
 const HomePage = loadable(lazy(() => import('src/pages/Home')))
-const SearchPage = loadable(lazy(() => import('src/pages/Search')))
+const PokemonPage = loadable(lazy(() => import('src/pages/Pokemon')))
 
 export default function Router() {
   return useRoutes([
@@ -23,8 +23,8 @@ export default function Router() {
           element: <HomePage />
         },
         {
-          path: '/search',
-          element: <SearchPage />
+          path: '/pokemon/:id',
+          element: <PokemonPage />
         }
       ]
     }
