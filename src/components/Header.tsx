@@ -1,4 +1,4 @@
-import { pokeballIcon } from 'src/assets/images'
+import { pokeballIcon } from 'src/assets'
 import { HiMenuAlt1 } from 'react-icons/hi'
 import { Link, useLocation } from 'react-router-dom'
 import classNames from 'classnames'

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { getPokemonByName } from 'src/api'
-import { pokeball } from 'src/assets/images'
+import { pokeball } from 'src/assets'
 import { formatPokemonNumber, formatPokemonName, getTypeColor } from 'src/utils'
 
 interface PokemonCardProps {
