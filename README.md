@@ -1,5 +1,9 @@
 # Pokedex - Pokemon website
 
+## Deploy
+
+[dpokedex](https://dpokedex.netlify.app/)
+
 ## Technologies
 
 - UI Library: Tailwindcss + HeadlessUI + SCSS
@@ -8,7 +12,6 @@
 - Router: React Router
 - Build tool: Vite
 - API: PokeAPI
-- Unit Test
 
 If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
