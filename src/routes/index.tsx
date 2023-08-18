@@ -25,12 +25,13 @@ export default function Router() {
           element: <HomePage />
         },
         {
-          path: '/pokemon/:name',
+          path: 'pokemon/:name',
           element: <PokemonDetail />,
           children: [
             {
               path: 'description',
-              element: <DescriptionPage />
+              element: <DescriptionPage />,
+              index: true
             },
             {
               path: 'location',
@@ -42,7 +43,7 @@ export default function Router() {
             },
             {
               path: '',
-              element: <Navigate to={'description'} />
+              element: <Navigate to={'description'} replace={true} />
             }
           ]
         }

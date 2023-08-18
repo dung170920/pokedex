@@ -3,11 +3,15 @@ import { HiMenuAlt1 } from 'react-icons/hi'
 import { Link, useLocation } from 'react-router-dom'
 import classNames from 'classnames'
 import { navLinks } from 'src/constants'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const Header = () => {
-  const location = useLocation()
-  const [active, setActive] = useState(location.pathname)
+  const { pathname } = useLocation()
+  const [active, setActive] = useState(navLinks[0].link)
+
+  useEffect(() => {
+    setActive(pathname)
+  }, [pathname])
 
   return (
     <nav className='grid grid-cols-[5rem_auto_5rem] border-b border-b-gray-medium '>
@@ -21,14 +25,13 @@ const Header = () => {
           <Link
             key={e.link}
             to={e.link}
-            onClick={() => setActive(e.link)}
             className={classNames(
               'items-center font-medium tracking-widest uppercase py-6 px-20 border-transparent border-b-2',
               {
-                'border-b-indigo-500 text-indigo-500': active === e.link
+                'border-b-red-500 text-red-500': active === e.link
               },
               {
-                'text-gray-light  hover:text-white hover:border-white': active !== e.link
+                'text-gray-light hover:text-white hover:border-white': active !== e.link
               }
             )}
           >

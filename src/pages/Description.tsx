@@ -13,7 +13,7 @@ const Description = () => {
     queryFn: () => getPokemonByName(params?.name || '')
   })
 
-  const color = `type-${getTypeColor(data?.data.types ?? [])}`
+  const color = `type-${getTypeColor(data?.data.types || [])}`
 
   return (
     <>
@@ -22,10 +22,19 @@ const Description = () => {
       ) : (
         <>
           <div
-            className={`absolute top-4 left-4 p-4 w-1/4 uppercase before:h-[0.3rem] before:w-[9rem] before:bg-${color} before:absolute before:top-0 before:left-0`}
+            className={`absolute top-4 left-4 p-4 w-1/4 before:h-[0.3rem] before:w-[9rem] before:bg-${color} before:absolute before:top-0 before:left-0`}
           >
-            <h1 className='mb-4 text-4xl'>{formatPokemonName(data?.data.name ?? '')}</h1>
-            <h3>Type: {data?.data.types.map((e) => e.type.name).join(' - ')}</h3>
+            <h1 className='mb-4 text-4xl uppercase'>{formatPokemonName(data?.data.name || '')}</h1>
+            <div className='flex gap-4'>
+              {data?.data.types.map((e) => (
+                <span
+                  key={e.type.name}
+                  className={`capitalize py-1 px-3 bg-type-${e.type.name} rounded-full font-semibold`}
+                >
+                  {e.type.name}
+                </span>
+              ))}
+            </div>
           </div>
           <div className='absolute left-4 bottom-8 flex flex-col gap-4 w-1/4'>
             {data?.data.stats.map((e) => (
@@ -38,9 +47,7 @@ const Description = () => {
             ))}
           </div>
           <div className='flex mt-12 absolute left-1/2 -translate-x-1/2'>
-            <div
-              className={`flex items-center justify-center w-96 h-96 border-[0.2rem] border-${color} rounded-full relative`}
-            >
+            <div className={`flex items-center justify-center w-96 h-96 border-[0.2rem] border-${color} rounded-full`}>
               <div
                 className={`w-80 h-80 flex items-center justify-center rounded-full border-[0.3rem] border-${color}`}
               >

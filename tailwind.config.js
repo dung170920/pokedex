@@ -39,7 +39,6 @@ export default {
           ice: '#9AD6DF',
           dragon: '#7037FF',
           fairy: '#E69EAC',
-          // shadow: '##68a090',
           unknown: '#B8B8B8',
           dark: '#75574C'
         }
