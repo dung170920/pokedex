@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 import { getPokemonByName } from 'src/api'
+import { pokeball } from 'src/assets'
 import { Loading, Progress } from 'src/components'
 import { formatPokemonName, getTypeColor } from 'src/utils'
 
@@ -23,7 +24,7 @@ const Description = () => {
           <div
             className={`absolute top-4 left-4 p-4 w-1/4 uppercase before:h-[0.3rem] before:w-[9rem] before:bg-${color} before:absolute before:top-0 before:left-0`}
           >
-            <h1 className='mb-4 text-4xl'>{data?.data.name}</h1>
+            <h1 className='mb-4 text-4xl'>{formatPokemonName(data?.data.name ?? '')}</h1>
             <h3>Type: {data?.data.types.map((e) => e.type.name).join(' - ')}</h3>
           </div>
           <div className='absolute left-4 bottom-8 flex flex-col gap-4 w-1/4'>
@@ -43,7 +44,7 @@ const Description = () => {
               <div
                 className={`w-80 h-80 flex items-center justify-center rounded-full border-[0.3rem] border-${color}`}
               >
-                <img src={data?.data.sprites.front_default || ''} alt='' className='h-96 w-96 z-10' />
+                <img src={data?.data.sprites.front_default || pokeball} alt='' className='h-full z-10 object-cover' />
               </div>
             </div>
             <div className='flex gap-12 absolute left-1/2 -translate-x-1/2'>

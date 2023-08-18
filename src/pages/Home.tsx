@@ -6,7 +6,7 @@ import { Loading, Pagination, PokemonCard } from 'src/components'
 
 const Home = () => {
   const limit = 10
-  const [offset] = useState<number>(0)
+  const [offset, setOffset] = useState<number>(0)
   // const [searchParams, setSearchParams] = useDebounce([limit, offset, searchName])
 
   const { data, isLoading } = useQuery({
@@ -16,8 +16,7 @@ const Home = () => {
         offset,
         limit
       }),
-    keepPreviousData: true,
-    staleTime: 500
+    keepPreviousData: true
   })
 
   return (
@@ -42,7 +41,7 @@ const Home = () => {
               </div>
             ))}
           </div>
-          <Pagination currentPage={offset} totalPages={data?.data.count || 0 / limit} />
+          <Pagination totalPages={(data?.data.count || 0) / limit} handlePageClick={setOffset} />
         </>
       )}
     </div>

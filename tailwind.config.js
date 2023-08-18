@@ -4,7 +4,7 @@ export default {
   safelist: [
     {
       pattern: /(bg|text|border|shadow)-type-/,
-      variants: ['hover', 'before', 'webkit-progress-value']
+      variants: ['hover', 'before']
     }
   ],
   theme: {
@@ -26,7 +26,7 @@ export default {
           normal: '#aaa67f',
           fighting: '#C12239',
           flying: '#A891EC',
-          posion: '#A43E9E',
+          poison: '#A43E9E',
           ground: '#DEC16B',
           rock: '#B69E31',
           bug: '#A7B723',
