@@ -8,13 +8,13 @@ const PokemonDetail = () => {
 
   return (
     <div className='flex items-center relative h-full'>
-      <div className='absolute right-4 top-4 flex flex-col gap-6 text-lg'>
+      <div className='absolute right-4 top-4 flex flex-col gap-6 text-lg bg-white bg-opacity-10 p-5 w-1/6'>
         {detailLinks.map((e) => (
           <Link
             key={e.link}
             to={e.link}
             className={classNames(
-              'flex items-center uppercase tracking-wider before:rounded-full before:h-2 gap-3',
+              'flex items-center uppercase tracking-widest before:rounded-full before:h-2 gap-3 text-sm',
               {
                 'text-red-500 before:bg-red-500 before:w-6': e.link === active
               },

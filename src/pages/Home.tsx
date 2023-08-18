@@ -34,7 +34,7 @@ const Home = () => {
         <Loading />
       ) : (
         <>
-          <div className='grid grid-cols-5 gap-5 mb-5'>
+          <div className='grid lg:grid-cols-5 gap-5 mb-5 md:grid-cols-3'>
             {data?.data.results.map(({ name }) => (
               <div key={name}>
                 <PokemonCard name={name} />

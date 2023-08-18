@@ -4,6 +4,7 @@ import { getPokemonByName } from 'src/api'
 import { pokeball } from 'src/assets'
 import { Loading, Progress } from 'src/components'
 import { formatPokemonName, getTypeColor } from 'src/utils'
+import { FaWeightScale, FaRulerVertical } from 'react-icons/fa6'
 
 const Description = () => {
   const params = useParams()
@@ -22,7 +23,7 @@ const Description = () => {
       ) : (
         <>
           <div
-            className={`absolute top-4 left-4 p-4 w-1/4 before:h-[0.3rem] before:w-[9rem] before:bg-${color} before:absolute before:top-0 before:left-0`}
+            className={`absolute top-4 left-4 p-4 w-1/4 before:h-[0.3rem] before:w-[9rem] before:bg-${color} before:absolute before:top-0 before:left-0 bg-white bg-opacity-10`}
           >
             <h1 className='mb-4 text-4xl uppercase'>{formatPokemonName(data?.data.name || '')}</h1>
             <div className='flex gap-4'>
@@ -58,6 +59,25 @@ const Description = () => {
               <div className={`h-112 w-[0.3rem] bg-${color} rotate-45 z-0`}></div>
               <div className={`h-112 w-[0.3rem] bg-${color} rotate-45 z-0`}></div>
             </div>
+          </div>
+          <div
+            className={`absolute right-4 bottom-8 p-4 before:h-[0.3rem] before:w-[9rem] before:bg-${color} before:absolute before:top-0 before:left-0 bg-white bg-opacity-10 flex gap-6`}
+          >
+            <div className='flex flex-col justify-center items-center'>
+              <div className='flex gap-3 items-center mb-1'>
+                <FaRulerVertical className='h-5 w-5' />
+                <span className='text-xl font-semibold'>{(data?.data.height || 0) / 10} m</span>
+              </div>
+              <span className='text-sm'>Height</span>
+            </div>
+            <div className='border-l border-gray-medium' />
+            <div className='flex flex-col justify-center items-center'>
+              <div className='flex gap-3 items-center mb-1'>
+                <FaWeightScale className='h-5 w-5' />
+                <span className='text-xl font-semibold'>{(data?.data.weight || 0) / 10} kg</span>
+              </div>
+              <span className='text-sm'>Weight</span>
+            </div>{' '}
           </div>
         </>
       )}
