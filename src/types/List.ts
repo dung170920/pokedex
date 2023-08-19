@@ -1,6 +1,7 @@
 export interface RequestListParams {
   limit?: number
   offset?: number
+  search?: string
 }
 
 export interface ListResponseType<T> {

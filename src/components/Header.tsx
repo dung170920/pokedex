@@ -1,55 +1,32 @@
 import { pokeballIcon } from 'src/assets'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 import { navLinks } from 'src/constants'
 import { useEffect, useState } from 'react'
 import { RiSearch2Line } from 'react-icons/ri'
-import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { debounce } from 'lodash'
-import { AxiosResponse } from 'axios'
-import { ListResponseType, Pokemons } from 'src/types'
-import { pokemonApi } from 'src/api'
+import queryString from 'query-string'
 
 const Header = () => {
-  const queryClient = useQueryClient()
+  const navigate = useNavigate()
   const { pathname } = useLocation()
   const [active, setActive] = useState('')
-  const handleChange = debounce((value: string) => filterPokemons(value), 500)
+  const handleChange = debounce((value: string) => {
+    if (value.length > 0) {
+      navigate(`?${queryString.stringify({ search: value })}`)
+    } else {
+      navigate('/')
+    }
+  }, 500)
 
   useEffect(() => {
     setActive(pathname)
-  }, [pathname])
-
-  useQuery({
-    queryKey: ['pokemons'],
-    staleTime: 500,
-    // enabled:
-    queryFn: () =>
-      pokemonApi.getPokemons({
-        offset: 0,
-        limit: 100000
-      })
-  })
-
-  function filterPokemons(value: string) {
-    const list = queryClient.getQueryData(['pokemons']) as AxiosResponse<ListResponseType<Pokemons>, any> | undefined
-
-    const newValue = list?.data.results?.filter((e) => e.name.includes(value.toLowerCase()))
-    queryClient.setQueryData(['pokemons'], {
-      ...list,
-      data: {
-        ...list?.data,
-        results: newValue
-      }
-    })
-  }
+  }, [navigate, pathname])
 
   return (
     <nav className='grid grid-cols-[5rem_auto_5rem] border-b border-b-gray-medium '>
       <div className='flex items-center justify-center border-r border-r-gray-medium'>
-        <Link to='/'>
-          <img src={pokeballIcon} alt='' className='w-10 h-10' />
-        </Link>
+        <img src={pokeballIcon} alt='' className='w-10 h-10' />
       </div>
       <ul className='flex items-center justify-between'>
         <div className='flex w-1/3 px-5 py-4 ml-4 text-white bg-white bg-opacity-10 rounded-xl'>

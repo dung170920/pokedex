@@ -19,7 +19,7 @@
   }
 
   a[rel='react-paginate'] {
-    @apply text-red-500 bg-red-500 bg-opacity-20;
+    @apply text-red-500 bg-red-500 bg-opacity-20 border-red-500;
 
     &:hover {
       @apply text-red-500 border-transparent;

@@ -64,7 +64,6 @@ const Pagination = ({ totalPages, params }: PaginationProps) => {
           </div>
         </button>
       }
-      renderOnZeroPageCount={null}
       initialPage={offset}
     />
   )

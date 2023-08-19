@@ -4,24 +4,42 @@ import { Loading, Pagination, PokemonCard } from 'src/components'
 import { useQueryParams } from 'src/hooks'
 import { RequestListParams } from 'src/types'
 
-// import { ListResponseType, Pokemons } from 'src/types'
-
 const Home = () => {
   const queryParams: RequestListParams = useQueryParams()
 
-  //const [page, setPage] = useState<number>(1)
-  // const searchList = queryClient.getQueryData(['pokemons']) as
-  //   | AxiosResponse<ListResponseType<Pokemons>, any>
-  //   | undefined
+  const initParams: RequestListParams = {
+    offset: Number(queryParams.offset) || 1,
+    limit: Number(queryParams.limit) || 10
+  }
 
   const { data, isLoading } = useQuery({
-    queryKey: ['pokemons', { ...queryParams }],
+    queryKey: ['pokemons', { ...initParams }],
     queryFn: () =>
-      pokemonApi.getPokemons({
-        ...queryParams,
-        offset: Number(queryParams.offset) === 1 ? 0 : queryParams.offset! * 10
-      }),
-    keepPreviousData: true
+      pokemonApi.getPokemons(
+        queryParams.search && queryParams.search.length > 0
+          ? {
+              offset: 0,
+              limit: 100000
+            }
+          : {
+              ...initParams,
+              offset: initParams.offset === 1 ? 0 : queryParams.offset! * 10
+            }
+      ),
+    keepPreviousData: true,
+    select: (data) => {
+      if (queryParams.search) {
+        const newList = data?.data.results?.filter((e) => e.name.includes(queryParams.search!.toLowerCase()))
+        return {
+          ...data,
+          data: {
+            ...data.data,
+            results: newList
+          }
+        }
+      }
+      return data
+    }
   })
 
   return (
@@ -40,8 +58,8 @@ const Home = () => {
                 ))}
             </div>
             <Pagination
-              totalPages={Math.floor((data.data.count || 0) / Number(queryParams?.limit || 0))}
-              params={queryParams}
+              totalPages={Math.floor((data.data.count || 0) / Number(initParams?.limit))}
+              params={initParams}
             />
           </>
         )
