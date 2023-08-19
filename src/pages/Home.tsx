@@ -39,7 +39,10 @@ const Home = () => {
                   </div>
                 ))}
             </div>
-            <Pagination totalPages={(data.data.count || 0) / Number(queryParams?.limit || 0)} params={queryParams} />
+            <Pagination
+              totalPages={Math.floor((data.data.count || 0) / Number(queryParams?.limit || 0))}
+              params={queryParams}
+            />
           </>
         )
       )}

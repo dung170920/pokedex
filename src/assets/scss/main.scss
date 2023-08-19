@@ -14,8 +14,15 @@
     width: 0.4rem;
 
     &-thumb {
-      border-radius: 100rem;
-      background-color: rgba(219, 219, 219, 0.2);
+      @apply rounded-full bg-white bg-opacity-20;
+    }
+  }
+
+  a[rel='react-paginate'] {
+    @apply text-red-500 bg-red-500 bg-opacity-20;
+
+    &:hover {
+      @apply text-red-500 border-transparent;
     }
   }
 }
