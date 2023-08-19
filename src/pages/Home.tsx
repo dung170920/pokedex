@@ -1,48 +1,47 @@
 import { useQuery } from '@tanstack/react-query'
-import { useState } from 'react'
-import { getPokemons } from 'src/api'
-import { RiSearch2Line } from 'react-icons/ri'
+import { pokemonApi } from 'src/api'
 import { Loading, Pagination, PokemonCard } from 'src/components'
+import { useQueryParams } from 'src/hooks'
+import { RequestListParams } from 'src/types'
+
+// import { ListResponseType, Pokemons } from 'src/types'
 
 const Home = () => {
-  const limit = 10
-  const [offset, setOffset] = useState<number>(0)
-  // const [searchParams, setSearchParams] = useDebounce([limit, offset, searchName])
+  const queryParams: RequestListParams = useQueryParams()
+
+  //const [page, setPage] = useState<number>(1)
+  // const searchList = queryClient.getQueryData(['pokemons']) as
+  //   | AxiosResponse<ListResponseType<Pokemons>, any>
+  //   | undefined
 
   const { data, isLoading } = useQuery({
-    queryKey: ['pokemons', offset],
+    queryKey: ['pokemons', { ...queryParams }],
     queryFn: () =>
-      getPokemons({
-        offset,
-        limit
+      pokemonApi.getPokemons({
+        ...queryParams,
+        offset: Number(queryParams.offset) === 1 ? 0 : queryParams.offset! * 10
       }),
     keepPreviousData: true
   })
 
   return (
     <div className='w-full h-full px-8 py-6 overflow-y-scroll'>
-      <div className='mb-5 flex text-white bg-white bg-opacity-10 px-5 py-4 rounded-xl w-1/3'>
-        <RiSearch2Line className='h-6 w-6 text-gray-light mr-3' />
-        <input
-          type='text'
-          placeholder='Enter name'
-          // onChange={() => }
-          className='outline-none border-none bg-transparent placeholder:text-gray-light '
-        />
-      </div>
       {isLoading ? (
         <Loading />
       ) : (
-        <>
-          <div className='grid lg:grid-cols-5 gap-5 mb-5 md:grid-cols-3'>
-            {data?.data.results.map(({ name }) => (
-              <div key={name}>
-                <PokemonCard name={name} />
-              </div>
-            ))}
-          </div>
-          <Pagination totalPages={(data?.data.count || 0) / limit} handlePageClick={setOffset} />
-        </>
+        data && (
+          <>
+            <div className='grid gap-5 mb-5 lg:grid-cols-5 md:grid-cols-3'>
+              {data.data.results != null &&
+                data.data.results.map(({ name }) => (
+                  <div key={name}>
+                    <PokemonCard name={name} />
+                  </div>
+                ))}
+            </div>
+            <Pagination totalPages={(data.data.count || 0) / Number(queryParams?.limit || 0)} params={queryParams} />
+          </>
+        )
       )}
     </div>
   )

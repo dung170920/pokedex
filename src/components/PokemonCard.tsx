@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
-import { getPokemonByName } from 'src/api'
+import { pokemonApi } from 'src/api'
 import { pokeball } from 'src/assets'
 import { formatPokemonNumber, formatPokemonName, getTypeColor } from 'src/utils'
 
@@ -11,7 +11,7 @@ interface PokemonCardProps {
 const PokemonCard = ({ name }: PokemonCardProps) => {
   const { data } = useQuery({
     queryKey: ['pokemons', name],
-    queryFn: () => getPokemonByName(name)
+    queryFn: () => pokemonApi.getPokemonByName(name)
   })
 
   const color = `type-${getTypeColor(data?.data.types ?? [])}`

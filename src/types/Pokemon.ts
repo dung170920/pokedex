@@ -12,3 +12,7 @@ export interface Pokemon {
 }
 
 export type Pokemons = Pick<Pokemon, 'name'>[]
+
+// export type PokemonQuery = {
+//   [key in keyof RequestListParams]: string
+// }

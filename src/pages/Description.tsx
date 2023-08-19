@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
-import { getPokemonByName } from 'src/api'
+import { pokemonApi } from 'src/api'
 import { pokeball } from 'src/assets'
 import { Loading, Progress } from 'src/components'
 import { formatPokemonName, getTypeColor } from 'src/utils'
@@ -11,7 +11,7 @@ const Description = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['pokemons', params?.name],
     staleTime: 10 * 1000,
-    queryFn: () => getPokemonByName(params?.name || '')
+    queryFn: () => pokemonApi.getPokemonByName(params?.name || '')
   })
 
   const color = `type-${getTypeColor(data?.data.types || [])}`
@@ -37,25 +37,25 @@ const Description = () => {
               ))}
             </div>
           </div>
-          <div className='absolute left-4 bottom-8 flex flex-col gap-4 w-1/4'>
+          <div className='absolute flex flex-col w-1/4 gap-4 left-4 bottom-8'>
             {data?.data.stats.map((e) => (
-              <div className='flex items-center gap-4 justify-end' key={e.stat.name}>
-                <p className='tracking-wider whitespace-nowrap text-right w-full'>
+              <div className='flex items-center justify-end gap-4' key={e.stat.name}>
+                <p className='w-full tracking-wider text-right whitespace-nowrap'>
                   {formatPokemonName(e.stat.name)}: {e.base_stat}
                 </p>
                 <Progress value={e.base_stat} color={color} />
               </div>
             ))}
           </div>
-          <div className='flex mt-12 absolute left-1/2 -translate-x-1/2'>
+          <div className='absolute flex mt-12 -translate-x-1/2 left-1/2'>
             <div className={`flex items-center justify-center w-96 h-96 border-[0.2rem] border-${color} rounded-full`}>
               <div
                 className={`w-80 h-80 flex items-center justify-center rounded-full border-[0.3rem] border-${color}`}
               >
-                <img src={data?.data.sprites.front_default || pokeball} alt='' className='h-full z-10 object-cover' />
+                <img src={data?.data.sprites.front_default || pokeball} alt='' className='z-10 object-cover h-full' />
               </div>
             </div>
-            <div className='flex gap-12 absolute left-1/2 -translate-x-1/2'>
+            <div className='absolute flex gap-12 -translate-x-1/2 left-1/2'>
               <div className={`h-112 w-[0.3rem] bg-${color} rotate-45 z-0`}></div>
               <div className={`h-112 w-[0.3rem] bg-${color} rotate-45 z-0`}></div>
             </div>
@@ -63,17 +63,17 @@ const Description = () => {
           <div
             className={`absolute right-4 bottom-8 p-4 before:h-[0.3rem] before:w-[9rem] before:bg-${color} before:absolute before:top-0 before:left-0 bg-white bg-opacity-10 flex gap-6`}
           >
-            <div className='flex flex-col justify-center items-center'>
-              <div className='flex gap-3 items-center mb-1'>
-                <FaRulerVertical className='h-5 w-5' />
+            <div className='flex flex-col items-center justify-center'>
+              <div className='flex items-center gap-3 mb-1'>
+                <FaRulerVertical className='w-5 h-5' />
                 <span className='text-xl font-semibold'>{(data?.data.height || 0) / 10} m</span>
               </div>
               <span className='text-sm'>Height</span>
             </div>
             <div className='border-l border-gray-medium' />
-            <div className='flex flex-col justify-center items-center'>
-              <div className='flex gap-3 items-center mb-1'>
-                <FaWeightScale className='h-5 w-5' />
+            <div className='flex flex-col items-center justify-center'>
+              <div className='flex items-center gap-3 mb-1'>
+                <FaWeightScale className='w-5 h-5' />
                 <span className='text-xl font-semibold'>{(data?.data.weight || 0) / 10} kg</span>
               </div>
               <span className='text-sm'>Weight</span>

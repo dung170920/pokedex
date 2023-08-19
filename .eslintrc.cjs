@@ -29,6 +29,7 @@ module.exports = {
     }
   },
   rules: {
+    '@typescript-eslint/no-explicit-any': 'warn',
     'react/jsx-no-target-blank': 'warn',
     'react/react-in-jsx-scope': 'off',
     'react/display-name': 'off',

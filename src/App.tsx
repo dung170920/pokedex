@@ -6,7 +6,8 @@ import { pokeball, pokeball2 } from 'src/assets'
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
+      refetchOnMount: false
     }
   }
 })
