@@ -8,6 +8,7 @@ const Home = () => {
   const queryParams: RequestListParams = useQueryParams()
 
   const initParams: RequestListParams = {
+    search: queryParams.search || '',
     offset: Number(queryParams.offset) || 1,
     limit: Number(queryParams.limit) || 10
   }
@@ -16,20 +17,21 @@ const Home = () => {
     queryKey: ['pokemons', { ...initParams }],
     queryFn: () =>
       pokemonApi.getPokemons(
-        queryParams.search && queryParams.search.length > 0
+        initParams.search!.length > 0
           ? {
               offset: 0,
               limit: 100000
             }
           : {
-              ...initParams,
-              offset: initParams.offset === 1 ? 0 : queryParams.offset! * 10
+              limit: initParams.limit,
+              offset: initParams.offset === 1 ? 0 : initParams.offset! * 10
             }
       ),
+    staleTime: 500,
     keepPreviousData: true,
     select: (data) => {
-      if (queryParams.search) {
-        const newList = data?.data.results?.filter((e) => e.name.includes(queryParams.search!.toLowerCase()))
+      if (initParams.search!.length > 0) {
+        const newList = data?.data.results?.filter((e) => e.name.includes(initParams.search!.toLowerCase()))
         return {
           ...data,
           data: {
@@ -57,10 +59,12 @@ const Home = () => {
                   </div>
                 ))}
             </div>
-            <Pagination
-              totalPages={Math.floor((data.data.count || 0) / Number(initParams?.limit))}
-              params={initParams}
-            />
+            {initParams.search?.length == 0 && (
+              <Pagination
+                totalPages={Math.floor((data.data.count || 0) / Number(initParams?.limit))}
+                params={initParams}
+              />
+            )}
           </>
         )
       )}
