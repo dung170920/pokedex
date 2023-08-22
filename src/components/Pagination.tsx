@@ -15,7 +15,7 @@ const Pagination = ({ totalPages, params }: PaginationProps) => {
 
   return (
     <ReactPaginate
-      containerClassName='flex items-center justify-center sm:px-0 px-4'
+      className='flex items-center justify-center px-4 overflow-hidden'
       breakLabel={
         <div className='inline-flex items-center px-4 py-2 text-sm font-medium border-t-2 border-transparent text-gray-light'>
           ...
@@ -24,9 +24,11 @@ const Pagination = ({ totalPages, params }: PaginationProps) => {
       nextLabel={
         <button
           onClick={() =>
-            offset >= totalPages - 1 ? null : navigate(`?${queryString.stringify({ ...params, offset: offset + 1 })}`)
+            offset >= totalPages - 1
+              ? null
+              : navigate(`?${queryString.stringify({ limit: params.limit, offset: offset + 1 })}`)
           }
-          className='flex flex-1'
+          className='flex-1 hidden md:flex'
         >
           <div
             className={`inline-flex items-center py-2 pl-4 text-sm font-medium border-t-2 border-transparent ${
@@ -40,19 +42,20 @@ const Pagination = ({ totalPages, params }: PaginationProps) => {
           </div>
         </button>
       }
-      pageLinkClassName={`inline-flex items-center px-4 py-2 text-sm font-medium text-gray-light border-t-2 border-transparent hover:border-white hover:text-white`}
+      pageLinkClassName={`flex items-center px-4 py-2 text-sm font-medium text-gray-light border-t-2 border-transparent hover:border-white hover:text-white`}
       selectedPageRel={'react-paginate'}
       onPageChange={({ selected }) => {
-        navigate(`?${queryString.stringify({ ...params, offset: selected + 1 })}`)
+        navigate(`?${queryString.stringify({ limit: params.limit, offset: selected + 1 })}`)
       }}
-      pageRangeDisplayed={3}
+      pageRangeDisplayed={2}
+      renderOnZeroPageCount={null}
       pageCount={totalPages}
       previousLabel={
         <button
           onClick={() =>
-            offset === 0 ? null : navigate(`?${queryString.stringify({ ...params, offset: offset - 1 })}`)
+            offset === 0 ? null : navigate(`?${queryString.stringify({ limit: params.limit, offset: offset - 1 })}`)
           }
-          className='flex flex-1'
+          className='flex-1 hidden md:flex'
         >
           <div
             className={`inline-flex items-center py-2 pr-4 text-sm font-medium border-t-2 border-transparent ${

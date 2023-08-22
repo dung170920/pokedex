@@ -12,6 +12,7 @@
   ::-webkit-scrollbar {
     background-color: transparent;
     width: 0.4rem;
+    height: 0.4rem;
 
     &-thumb {
       @apply rounded-full bg-white bg-opacity-20;

@@ -23,9 +23,11 @@ const PokemonCard = ({ name }: PokemonCardProps) => {
     >
       <div className={`w-full px-4 text-right text-${color}`}>{formatPokemonNumber(data?.data.id || 0)}</div>
       <img src={data?.data.sprites.front_default || pokeball} alt='' loading='lazy' className='px-4 h-36' />
-      <div className={`w-full px-2 py-1 text-lg text-center capitalize text-ellipsis whitespace-nowrap bg-${color}`}>
+      <span
+        className={`w-full px-2 py-1 text-lg text-center capitalize text-ellipsis whitespace-nowrap bg-${color} overflow-hidden`}
+      >
         {formatPokemonName(data?.data.name || '')}
-      </div>
+      </span>
     </Link>
   )
 }

@@ -7,14 +7,14 @@ const PokemonDetail = () => {
   const [active, setActive] = useState(detailLinks[0].link)
 
   return (
-    <div className='flex items-center relative h-full'>
-      <div className='absolute right-4 top-4 flex flex-col gap-6 text-lg bg-white bg-opacity-10 p-5 w-1/6'>
+    <div className='relative flex flex-col h-full gap-4 p-4 overflow-scroll '>
+      <div className='flex w-full gap-6 p-5 text-lg bg-white md:flex-col md:absolute top-4 right-4 md:w-fit bg-opacity-10 h-fit'>
         {detailLinks.map((e) => (
           <Link
             key={e.link}
             to={e.link}
             className={classNames(
-              'flex items-center uppercase tracking-widest before:rounded-full before:h-2 gap-3 text-sm',
+              'flex items-center uppercase tracking-widest before:rounded-full before:h-2 gap-3 text-sm w-fit',
               {
                 'text-red-500 before:bg-red-500 before:w-6': e.link === active
               },

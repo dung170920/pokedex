@@ -45,7 +45,7 @@ const Home = () => {
   })
 
   return (
-    <div className='w-full h-full px-8 py-6 overflow-y-scroll'>
+    <div className='w-full h-full px-4 py-4 overflow-y-scroll md:py-6 md:px-8'>
       {isLoading ? (
         <Loading />
       ) : (
@@ -59,12 +59,14 @@ const Home = () => {
                   </div>
                 ))}
             </div>
-            {initParams.search?.length == 0 && (
-              <Pagination
-                totalPages={Math.floor((data.data.count || 0) / Number(initParams?.limit))}
-                params={initParams}
-              />
-            )}
+            <div className='w-full'>
+              {initParams.search?.length == 0 && (
+                <Pagination
+                  totalPages={Math.floor((data.data.count || 0) / Number(initParams?.limit))}
+                  params={initParams}
+                />
+              )}
+            </div>
           </>
         )
       )}

@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import classNames from 'classnames'
 import { navLinks } from 'src/constants'
 import { useEffect, useState } from 'react'
-import { RiSearch2Line } from 'react-icons/ri'
+import { RiSearch2Line, RiMenu3Fill } from 'react-icons/ri'
 import { debounce } from 'lodash'
 import queryString from 'query-string'
 
@@ -24,27 +24,27 @@ const Header = () => {
   }, [navigate, pathname])
 
   return (
-    <nav className='grid grid-cols-[5rem_auto_5rem] border-b border-b-gray-medium '>
+    <nav className='grid grid-cols-[10vh_auto_10vh] border-b border-b-gray-medium '>
       <div className='flex items-center justify-center border-r border-r-gray-medium'>
         <img src={pokeballIcon} alt='' className='w-10 h-10' />
       </div>
-      <ul className='flex items-center justify-between'>
-        <div className='flex w-1/3 px-5 py-4 ml-4 text-white bg-white bg-opacity-10 rounded-xl'>
-          <RiSearch2Line className='w-6 h-6 mr-3 text-gray-light' />
+      <ul className='flex items-center justify-between gap-4 mx-2 md:mx-6'>
+        <div className='flex md:w-1/3 items-center px-5 h-[56px] text-white bg-white bg-opacity-10 rounded-xl'>
+          <RiSearch2Line className='mr-3 w-7 h-7 text-gray-light' />
           <input
             type='text'
-            placeholder='Enter name of pokemon'
+            placeholder='Enter name'
             onChange={(e) => handleChange(e.target.value)}
             className='w-full bg-transparent border-none outline-none placeholder:text-gray-light'
           />
         </div>
-        <div>
+        <div className='hidden md:flex'>
           {navLinks.map((e) => (
             <Link
               key={e.link}
               to={e.link}
               className={classNames(
-                'items-center font-medium tracking-widest uppercase py-6 px-20 border-transparent border-b-2',
+                'font-medium tracking-widest uppercase py-6 lg:px-20 md:px-10 border-transparent border-b-2',
                 {
                   'border-b-red-500 text-red-500': active === e.link
                 },
@@ -58,7 +58,9 @@ const Header = () => {
           ))}
         </div>
       </ul>
-      <div className='flex items-center justify-center border-l border-l-gray-medium'></div>
+      <div className='flex items-center justify-center border-l border-l-gray-medium'>
+        <RiMenu3Fill className='block cursor-pointer w-7 h-7 text-gray-light md:hidden' />
+      </div>
     </nav>
   )
 }

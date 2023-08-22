@@ -21,11 +21,11 @@ const Description = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <>
+        <div className='flex flex-col flex-1 gap-4 h-fit'>
           <div
-            className={`absolute top-4 left-4 p-4 w-1/4 before:h-[0.3rem] before:w-[9rem] before:bg-${color} before:absolute before:top-0 before:left-0 bg-white bg-opacity-10`}
+            className={`p-4 md:w-fit w-full max-w-[2/4] before:h-[0.3rem] before:w-[4rem] before:bg-${color} before:absolute before:top-0 before:left-0 bg-white bg-opacity-10 relative`}
           >
-            <h1 className='mb-4 text-4xl uppercase'>{formatPokemonName(data?.data.name || '')}</h1>
+            <h1 className='mb-4 text-xl uppercase lg:text-4xl'>{formatPokemonName(data?.data.name || '')}</h1>
             <div className='flex gap-4'>
               {data?.data.types.map((e) => (
                 <span
@@ -37,49 +37,54 @@ const Description = () => {
               ))}
             </div>
           </div>
-          <div className='absolute flex flex-col w-1/4 gap-4 left-4 bottom-8'>
-            {data?.data.stats.map((e) => (
-              <div className='flex items-center justify-end gap-4' key={e.stat.name}>
-                <p className='w-full tracking-wider text-right whitespace-nowrap'>
-                  {formatPokemonName(e.stat.name)}: {e.base_stat}
-                </p>
-                <Progress value={e.base_stat} color={color} />
-              </div>
-            ))}
-          </div>
-          <div className='absolute flex mt-12 -translate-x-1/2 left-1/2'>
-            <div className={`flex items-center justify-center w-96 h-96 border-[0.2rem] border-${color} rounded-full`}>
+
+          <div className='flex flex-col items-center justify-between gap-4 md:items-end md:flex-row'>
+            <div className='flex flex-col w-full gap-3 md:w-1/3 lg:w-1/4'>
+              {data?.data.stats.map((e) => (
+                <div className='flex items-center justify-end w-full gap-4' key={e.stat.name}>
+                  <span className='w-full tracking-wider text-right whitespace-nowrap'>
+                    {formatPokemonName(e.stat.name)}: {e.base_stat}
+                  </span>
+                  <Progress value={e.base_stat} color={color} />
+                </div>
+              ))}
+            </div>
+            <div className='relative md:mb-20'>
               <div
-                className={`w-80 h-80 flex items-center justify-center rounded-full border-[0.3rem] border-${color}`}
+                className={`flex items-center justify-center h-[42vh] w-[42vh] border-[0.2rem] border-${color} rounded-full h-full w-full`}
               >
-                <img src={data?.data.sprites.front_default || pokeball} alt='' className='z-10 object-cover h-full' />
+                <div
+                  className={`h-[calc(42vh-4rem)] w-[calc(42vh-4rem)] flex items-center justify-center rounded-full border-[0.3rem] border-${color}`}
+                >
+                  <img src={data?.data.sprites.front_default || pokeball} alt='' className='z-10 object-cover h-full' />
+                </div>
+              </div>
+              <div className='absolute top-0 flex gap-12 -translate-x-1/2 left-1/2'>
+                <div className={`h-[42vh] w-[0.3rem] bg-${color} rotate-45 z-0`}></div>
+                <div className={`h-[42vh] w-[0.3rem] bg-${color} rotate-45 z-0`}></div>
               </div>
             </div>
-            <div className='absolute flex gap-12 -translate-x-1/2 left-1/2'>
-              <div className={`h-112 w-[0.3rem] bg-${color} rotate-45 z-0`}></div>
-              <div className={`h-112 w-[0.3rem] bg-${color} rotate-45 z-0`}></div>
+            <div
+              className={`p-4 before:h-[0.3rem] before:w-[4rem] before:bg-${color} before:absolute before:top-0 before:left-0 bg-white bg-opacity-10 relative flex gap-6 h-fit w-fit lg:flex-row flex-row md:flex-col`}
+            >
+              <div className='flex flex-col items-center justify-center'>
+                <div className='flex items-center gap-3 mb-1'>
+                  <FaRulerVertical className='w-5 h-5' />
+                  <span className='text-lg font-semibold whitespace-nowrap'>{(data?.data.height || 0) / 10} m</span>
+                </div>
+                <span className='text-sm'>Height</span>
+              </div>
+              <div className='border-l border-gray-medium' />
+              <div className='flex flex-col items-center justify-center'>
+                <div className='flex items-center gap-3 mb-1'>
+                  <FaWeightScale className='w-5 h-5' />
+                  <span className='text-lg font-semibold whitespace-nowrap'>{(data?.data.weight || 0) / 10} kg</span>
+                </div>
+                <span className='text-sm'>Weight</span>
+              </div>
             </div>
           </div>
-          <div
-            className={`absolute right-4 bottom-8 p-4 before:h-[0.3rem] before:w-[9rem] before:bg-${color} before:absolute before:top-0 before:left-0 bg-white bg-opacity-10 flex gap-6`}
-          >
-            <div className='flex flex-col items-center justify-center'>
-              <div className='flex items-center gap-3 mb-1'>
-                <FaRulerVertical className='w-5 h-5' />
-                <span className='text-xl font-semibold'>{(data?.data.height || 0) / 10} m</span>
-              </div>
-              <span className='text-sm'>Height</span>
-            </div>
-            <div className='border-l border-gray-medium' />
-            <div className='flex flex-col items-center justify-center'>
-              <div className='flex items-center gap-3 mb-1'>
-                <FaWeightScale className='w-5 h-5' />
-                <span className='text-xl font-semibold'>{(data?.data.weight || 0) / 10} kg</span>
-              </div>
-              <span className='text-sm'>Weight</span>
-            </div>{' '}
-          </div>
-        </>
+        </div>
       )}
     </>
   )
