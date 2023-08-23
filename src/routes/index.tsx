@@ -1,6 +1,6 @@
-import { Navigate, useRoutes } from 'react-router-dom'
+import { useRoutes } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
-import { Main, PokemonDetail } from 'src/layouts'
+import { Main } from 'src/layouts'
 import { Loading } from 'src/components'
 
 const loadable = (Component: React.LazyExoticComponent<() => JSX.Element>) => (props: React.Attributes) => (
@@ -10,9 +10,7 @@ const loadable = (Component: React.LazyExoticComponent<() => JSX.Element>) => (p
 )
 
 const HomePage = loadable(lazy(() => import('src/pages/Home')))
-const DescriptionPage = loadable(lazy(() => import('src/pages/Description')))
-const EvolutionPage = loadable(lazy(() => import('src/pages/Evolution')))
-const LocationPage = loadable(lazy(() => import('src/pages/Location')))
+const PokemonDetailPage = loadable(lazy(() => import('src/pages/PokemonDetail')))
 
 export default function Router() {
   return useRoutes([
@@ -26,26 +24,7 @@ export default function Router() {
         },
         {
           path: 'pokemon/:name',
-          element: <PokemonDetail />,
-          children: [
-            {
-              path: 'description',
-              element: <DescriptionPage />,
-              index: true
-            },
-            {
-              path: 'location',
-              element: <LocationPage />
-            },
-            {
-              path: 'evolution',
-              element: <EvolutionPage />
-            },
-            {
-              path: '',
-              element: <Navigate to={'description'} replace={true} />
-            }
-          ]
+          element: <PokemonDetailPage />
         }
       ]
     }

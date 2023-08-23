@@ -1,12 +1,16 @@
+import classNames from 'classnames'
+import { useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { detailLinks } from 'src/constants'
 import { useQuery } from '@tanstack/react-query'
-import { useParams } from 'react-router-dom'
 import { pokemonApi } from 'src/api'
 import { pokeball } from 'src/assets'
 import { Loading, Progress } from 'src/components'
 import { formatPokemonName, getTypeColor } from 'src/utils'
 import { FaWeightScale, FaRulerVertical } from 'react-icons/fa6'
 
-const Description = () => {
+const PokemonDetail = () => {
+  // const [active, setActive] = useState(detailLinks[0].link)
   const params = useParams()
   const { data, isLoading } = useQuery({
     queryKey: ['pokemons', params?.name],
@@ -17,7 +21,27 @@ const Description = () => {
   const color = `type-${getTypeColor(data?.data.types || [])}`
 
   return (
-    <>
+    <div className='relative flex flex-col h-full gap-4 p-4 overflow-scroll '>
+      {/* <div className='flex w-full gap-6 p-5 text-lg bg-white md:flex-col md:absolute top-4 right-4 md:w-fit bg-opacity-10 h-fit'>
+        {detailLinks.map((e) => (
+          <Link
+            key={e.link}
+            to={e.link}
+            className={classNames(
+              'flex items-center uppercase tracking-widest before:rounded-full before:h-2 gap-3 text-sm w-fit',
+              {
+                'text-red-500 before:bg-red-500 before:w-6': e.link === active
+              },
+              {
+                'text-gray-light before:bg-gray-light before:w-2': e.link !== active
+              }
+            )}
+            onClick={() => setActive(e.link)}
+          >
+            {e.name}
+          </Link>
+        ))}
+      </div> */}
       {isLoading ? (
         <Loading />
       ) : (
@@ -86,8 +110,8 @@ const Description = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
 
-export default Description
+export default PokemonDetail
