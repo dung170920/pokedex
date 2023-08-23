@@ -1,7 +1,10 @@
-import classNames from 'classnames'
-import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-import { detailLinks } from 'src/constants'
+// import classNames from 'classnames'
+// import { useState } from 'react'
+import {
+  // Link,
+  useParams
+} from 'react-router-dom'
+// import { detailLinks } from 'src/constants'
 import { useQuery } from '@tanstack/react-query'
 import { pokemonApi } from 'src/api'
 import { pokeball } from 'src/assets'
@@ -83,7 +86,7 @@ const PokemonDetail = () => {
                   <img src={data?.data.sprites.front_default || pokeball} alt='' className='z-10 object-cover h-full' />
                 </div>
               </div>
-              <div className='absolute top-0 flex gap-12 -translate-x-1/2 left-1/2'>
+              <div className='absolute top-0 flex gap-10 -translate-x-1/2 left-1/2'>
                 <div className={`h-[42vh] w-[0.3rem] bg-${color} rotate-45 z-0`}></div>
                 <div className={`h-[42vh] w-[0.3rem] bg-${color} rotate-45 z-0`}></div>
               </div>
